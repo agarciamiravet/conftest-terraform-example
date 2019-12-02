@@ -19,3 +19,20 @@ jobs:
       with:
         path: "examples/gke/gke.json"
         policy: "examples/gke/policy"
+
+  awsterraform:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    ## Leaving terraform cmds as example but not run due to credential requirements
+    # - name: Terraform plan
+    #   run: |
+    #     cd examples/aws/public_s3/
+    #     terraform init
+    #     terraform plan -out public_s3.tfplan
+    #     terraform show -json public_s3.tfplan > public_s3.json
+    - name: OPA tests
+      uses: ibiqlik/conftest-action-docker@master
+      with:
+        path: "examples/aws/public_s3/public_s3.json"
+        policy: "examples/aws/public_s3/policy"
