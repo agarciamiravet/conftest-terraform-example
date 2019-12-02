@@ -1,7 +1,7 @@
-name: Test
+name: Conftest
 on: [push]
 jobs:
-  test:
+  gketerraform:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -11,8 +11,11 @@ jobs:
         terraform init
         terraform plan -out gke.tfplan
         terraform show -json gke.tfplan > gke.json
-    - name: Run OPA tests
+    # - name: Check terraform output
+    #   run: |
+    #     jq . examples/gke/gke.json
+    - name: OPA tests
       uses: ibiqlik/conftest-action-docker@master
       with:
-        path: "examples/gke/gke/json"
+        path: "examples/gke/gke.json"
         policy: "examples/gke/policy"
