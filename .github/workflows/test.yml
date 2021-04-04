@@ -1,5 +1,10 @@
 name: Conftest
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
 jobs:
   gketerraform:
     runs-on: ubuntu-latest
